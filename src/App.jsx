@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
 import './App.css'
 import { fetchCustomers } from "./asyncActions/customers"
-import { addCustomerAction, removeCustomerAction } from "./store/customerReducer"
+import { asyncDecrementCreator, asyncIncrementCreator, decrementCreator, incrementCreator } from "./store/cashReducer"
+import { addCustomerAction, fetchAddManyCustomersAction, removeCustomerAction } from "./store/customerReducer"
 
 const App = () => {
     const dispatch = useDispatch()
@@ -10,11 +11,11 @@ const App = () => {
     console.log(cash)
 
     const getCash = (cash) => {
-        dispatch({type:'GET_CASH',payload: cash})
+        dispatch(asyncDecrementCreator(cash))
     }
 
     const addCash = (cash) => {
-        dispatch({type:'ADD_CASH',payload: cash})
+        dispatch(asyncIncrementCreator(cash))
     }
 
     const addCustomer = (name) =>{
@@ -33,10 +34,10 @@ const App = () => {
         <div className='app'>
             <div className='display'><p>{cash}</p></div>
             <div className='bottons'>
-                <button onClick={() => addCash(Number(prompt()))}>Add money</button>
-                <button onClick={() => getCash(Number(prompt()))}>Take money</button>
+                <button onClick={() => addCash()}>Add money</button>
+                <button onClick={() => getCash()}>Take money</button>
                 <button onClick={() => addCustomer(prompt())}>Add client</button>
-                <button onClick={() => dispatch(fetchCustomers())}>Get clients from DB</button>
+                <button onClick={() => dispatch(fetchAddManyCustomersAction())}>Get clients from DB</button>
             </div>
             {customers.length>0 ?
             <div>
