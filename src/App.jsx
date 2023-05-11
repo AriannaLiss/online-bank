@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import './App.css'
+import { fetchCustomers } from "./asyncActions/customers"
 import { addCustomerAction, removeCustomerAction } from "./store/customerReducer"
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
                 <button onClick={() => addCash(Number(prompt()))}>Add money</button>
                 <button onClick={() => getCash(Number(prompt()))}>Take money</button>
                 <button onClick={() => addCustomer(prompt())}>Add client</button>
+                <button onClick={() => dispatch(fetchCustomers())}>Get clients from DB</button>
             </div>
             {customers.length>0 ?
             <div>
